@@ -2,12 +2,23 @@ import { Article } from "@/types";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 import estimateReadTime from "@/lib/count-long-read";
 import { format } from "date-fns";
+import store from "@/redux/store";
+import { setNews } from "@/redux/news/newsSlice";
+import { Link } from "react-router";
 
 const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMain?: boolean; isSide?: boolean }) => {
+  const onClickNews = () => {
+    console.log(article);
+
+    store.dispatch(setNews(article));
+  };
+
   return (
-    <Card className={`grow ${isSide && " flex-row gap-y-4"}`}>
-      <img src={article.urlToImage ?? ""} alt={article.title} className={`object-cover aspect-video ${isSide ? "w-1/3" : "w-full"}`} />
-      <div className={`grow flex flex-col ${isSide ? "gap-y-4 mt-2" : !isMain ? "gap-y-2" : "gap-y-6"}`}>
+    <Card className={`grow overflow-hidden ${isSide && " flex-row gap-y-4"}`}>
+      <Link to={"/news"} className={`${isSide ? "max-w-1/3 min-w-1/3" : "w-full"}`} onClick={onClickNews}>
+        <img src={article.urlToImage ?? ""} alt={article.title} className={`hover:brightness-75 object-cover aspect-video`} />
+      </Link>
+      <div className={`flex flex-col ${isSide ? "gap-y-4 mt-2" : !isMain ? "gap-y-2" : "gap-y-6"}`}>
         <CardHeader className='px-0'>
           <CardDescription
             className={`flex ${(isMain ? "text-base" : "text-xs") + (isSide ? " flex-row-reverse justify-end gap-1" : " justify-between")}`}
@@ -15,7 +26,9 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
             <p>{format(new Date(article.publishedAt), "d LLL") + " • " + estimateReadTime(article.content ?? "")}</p>
             <p className=''>By {(article.author ?? "Unknown") + (isSide ? " • " : "")}</p>
           </CardDescription>
-          <CardTitle className={`${isMain && "text-3xl"}`}>{article.title}</CardTitle>
+          <Link to={"/news"} onClick={onClickNews}>
+            <CardTitle className={`hover:text-primary ${isMain && "text-3xl"}`}>{article.title}</CardTitle>
+          </Link>
         </CardHeader>
         <CardContent className={`px-0 ${isMain ? "text-xl" : "text-sm"}`}>
           <p>{article.description}</p>
