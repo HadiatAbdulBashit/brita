@@ -1,13 +1,20 @@
-import logoWide from "@/assets/image/icon/logo-wide.png";
-import { LoaderCircle, Mic, Search } from "lucide-react";
-import { Input } from "./ui/input";
 import { useEffect, useId, useState } from "react";
+
+import { LoaderCircle, Moon, Search, Sun } from "lucide-react";
+
+import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+
+import { useTheme } from "@/components/theme-provider";
+
+import logoWide from "@/assets/image/icon/logo-wide.png";
 
 const Header = () => {
   const id = useId();
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { setTheme } = useTheme();
 
   useEffect(() => {
     if (inputValue) {
@@ -33,6 +40,20 @@ const Header = () => {
           </nav>
         </div>
         <div className='justify-self-end flex gap-2 items-center'>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant='outline' size='icon'>
+                <Sun className='h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0' />
+                <Moon className='absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100' />
+                <span className='sr-only'>Toggle theme</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className='relative'>
             <Input
               id={id}
