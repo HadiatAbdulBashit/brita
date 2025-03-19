@@ -119,3 +119,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
