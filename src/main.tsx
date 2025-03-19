@@ -1,12 +1,13 @@
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { SWRConfig } from "swr";
 
+import { ThemeProvider } from "@/components/theme-provider.tsx";
+import { Toaster } from "@/components/ui/sonner";
 import store from "@/redux/store";
 import App from "@/App.tsx";
 
 import "@/index.css";
-import { ThemeProvider } from "@/components/theme-provider.tsx";
-import { SWRConfig } from "swr";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
@@ -23,6 +24,7 @@ createRoot(document.getElementById("root")!).render(
         }}
       >
         <App />
+        <Toaster richColors />
       </SWRConfig>
     </ThemeProvider>
   </Provider>

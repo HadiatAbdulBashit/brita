@@ -9,6 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useTheme } from "@/components/theme-provider";
 
 import logoWide from "@/assets/image/icon/logo-wide.png";
+import { Link } from "react-router";
 
 const Header = () => {
   const id = useId();
@@ -31,7 +32,9 @@ const Header = () => {
     <header className='sticky top-0 bg-background z-10'>
       <div className='container mx-auto flex justify-between py-2 items-center'>
         <div className='flex gap-8 items-center'>
-          <img src={logoWide} alt='logo' className='max-w-32 h-auto' />
+          <Link to={"/"}>
+            <img src={logoWide} alt='logo' className='max-w-32 h-auto' />
+          </Link>
           <nav>
             <ul className='flex gap-4'>
               <li>News</li>
@@ -71,8 +74,12 @@ const Header = () => {
               )}
             </div>
           </div>
-          <Button variant={"outline"}>Login</Button>
-          <Button>Sign Up</Button>
+          <Link to={"/login"}>
+            <Button variant={"outline"}>Login</Button>
+          </Link>
+          <Link to={"/register"}>
+            <Button>Register</Button>
+          </Link>
         </div>
       </div>
     </header>

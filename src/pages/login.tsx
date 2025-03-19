@@ -52,7 +52,7 @@ const Login = () => {
             placeholder='email@example.com'
             {...register("email", { required: "Email is required", pattern: /^\S+@\S+$/i })}
             disabled={isLoading}
-            autoComplete=''
+            autoComplete='email'
           />
           <InputError message={errors.email?.message} />
         </div>
@@ -60,15 +60,12 @@ const Login = () => {
         <div className='grid gap-2'>
           <div className='flex items-center'>
             <Label htmlFor='password'>Password</Label>
-            <Link to={"/reset-password"} className='ml-auto text-sm' tabIndex={5}>
-              Forgot password?
-            </Link>
           </div>
           <Input
             id='password'
             type='password'
             tabIndex={2}
-            autoComplete='current-password'
+            autoComplete='password'
             {...register("password", { required: "Password is required" })}
             placeholder='Password'
             disabled={isLoading}
@@ -90,7 +87,7 @@ const Login = () => {
       <div className='text-muted-foreground text-center text-sm'>
         Don't have an account?{" "}
         <Link to={"/register"} tabIndex={5} className='hover:underline'>
-          Sign up
+          Register
         </Link>
       </div>
     </form>

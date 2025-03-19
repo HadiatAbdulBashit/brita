@@ -9,6 +9,7 @@ import { setError, setIsLoading, setMetaData } from "./redux/metaData/metaData";
 import { extractNewsMetadata } from "./lib/extract-meta-data";
 import AuthLayout from "./layouts/auth";
 import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
   const { data, error, isLoading } = useSWR(`/top-headlines/sources`);
@@ -34,8 +35,16 @@ function App() {
         <Route
           path='login'
           element={
-            <AuthLayout title='Login' description='Login to your account'>
+            <AuthLayout title='Log in to your account' description='Enter your email and password below to log in'>
               <Login />
+            </AuthLayout>
+          }
+        />
+        <Route
+          path='register'
+          element={
+            <AuthLayout title='Create an account' description='Enter your details below to create your account'>
+              <Register />
             </AuthLayout>
           }
         />
