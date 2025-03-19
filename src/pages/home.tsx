@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import PageTitle from "@/components/pageTitle";
+import PageTitle from "@/components/page-title";
 import { Article } from "@/types";
 import NewsCard from "@/components/news-card";
 import { Separator } from "@/components/ui/separator";

@@ -1,4 +1,4 @@
-import PageTitle from "@/components/pageTitle";
+import PageTitle from "@/components/page-title";
 import { Button } from "@/components/ui/button";
 import estimateReadTime from "@/lib/count-long-read";
 import { Article } from "@/types";
