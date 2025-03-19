@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import store from "./redux/store";
 import { setError, setIsLoading, setMetaData } from "./redux/metaData/metaData";
 import { extractNewsMetadata } from "./lib/extract-meta-data";
+import AuthLayout from "./layouts/auth";
+import Login from "./pages/login";
 
 function App() {
   const { data, error, isLoading } = useSWR(`/top-headlines/sources`);
@@ -29,6 +31,14 @@ function App() {
           <Route index element={<Home />} />
           <Route path='news' element={<News />} />
         </Route>
+        <Route
+          path='login'
+          element={
+            <AuthLayout title='Login' description='Login to your account'>
+              <Login />
+            </AuthLayout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
