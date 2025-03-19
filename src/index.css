@@ -126,3 +126,8 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.container {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
