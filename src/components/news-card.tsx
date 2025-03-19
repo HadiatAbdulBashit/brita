@@ -8,8 +8,6 @@ import { Link } from "react-router";
 
 const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMain?: boolean; isSide?: boolean }) => {
   const onClickNews = () => {
-    console.log(article);
-
     store.dispatch(setNews(article));
   };
 

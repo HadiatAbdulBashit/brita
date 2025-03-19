@@ -1,5 +1,3 @@
-import { categories } from "@/constants/news.constant";
-
 export type Article = {
   source: { id: string | null; name: string };
   author: string | null;
@@ -11,4 +9,12 @@ export type Article = {
   content: string | null;
 };
 
-export type CategoryType = (typeof categories)[number];
+export type NewsSource = {
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  category: string;
+  language: string;
+  country: string;
+};

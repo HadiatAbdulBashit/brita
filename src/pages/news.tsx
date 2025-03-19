@@ -8,8 +8,6 @@ import { useSelector } from "react-redux";
 const News = () => {
   const news: Article = useSelector((state: any) => state.news.content);
 
-  console.log(news.content?.split("[")[0]);
-
   return (
     <div className='container max-w-xl mx-auto'>
       <PageTitle title='News' />
