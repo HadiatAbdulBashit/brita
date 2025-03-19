@@ -28,7 +28,7 @@ const Header = () => {
   }, [inputValue]);
 
   return (
-    <header>
+    <header className='sticky top-0 bg-background z-10'>
       <div className='container mx-auto flex justify-between py-2 items-center'>
         <div className='flex gap-8 items-center'>
           <img src={logoWide} alt='logo' className='max-w-32 h-auto' />

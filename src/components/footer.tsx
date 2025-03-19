@@ -6,9 +6,10 @@ import { Separator } from "./ui/separator";
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className='bg-slate-400/0'>
       <div className='container mx-auto py-8'>
-        <div className='grid grid-cols-3 mb-4 items-center'>
+        <Separator />
+        <div className='grid grid-cols-3 mb-4 items-center mt-8'>
           <img src={logoSquare} alt='logo' className='max-w-32 h-auto' />
           <div className='justify-self-end col-span-2 flex gap-12 text-right'>
             <div>

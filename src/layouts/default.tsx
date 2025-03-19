@@ -6,7 +6,7 @@ const DefaultLayout = () => {
   return (
     <>
       <Header />
-      <main>
+      <main className='grow pt-8'>
         <Outlet />
       </main>
       <Footer />
