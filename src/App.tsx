@@ -1,18 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import Home from "@/pages/home";
-import DefaultLayout from "@/layouts/default";
-import News from "./pages/news";
-import useSWR from "swr";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import store from "./redux/store";
-import { setError, setIsLoading, setMetaData } from "./redux/metaData/metaData";
-import { extractNewsMetadata } from "./lib/extract-meta-data";
-import AuthLayout from "./layouts/auth";
-import Login from "./pages/login";
-import Register from "./pages/register";
+import useSWR from "swr";
+
+import ProtectedRoute from "@/components/protected-route";
+import DefaultLayout from "@/layouts/default";
+import AuthLayout from "@/layouts/auth";
+import Register from "@/pages/register";
+import Login from "@/pages/login";
+import Home from "@/pages/home";
+import News from "@/pages/news";
+
+import store from "@/redux/store";
+
+import { setError, setIsLoading, setMetaData } from "@/redux/metaData/metaData";
+
+import { extractNewsMetadata } from "@/lib/extract-meta-data";
 
 function App() {
   const { data, error, isLoading } = useSWR(`/top-headlines/sources`);
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
 
   useEffect(() => {
     if (error) store.dispatch(setError(error));
@@ -32,22 +39,27 @@ function App() {
           <Route index element={<Home />} />
           <Route path='news' element={<News />} />
         </Route>
-        <Route
-          path='login'
-          element={
-            <AuthLayout title='Log in to your account' description='Enter your email and password below to log in'>
-              <Login />
-            </AuthLayout>
-          }
-        />
-        <Route
-          path='register'
-          element={
-            <AuthLayout title='Create an account' description='Enter your details below to create your account'>
-              <Register />
-            </AuthLayout>
-          }
-        />
+        <Route element={<ProtectedRoute condition={!isAuthenticated} target='/' />}>
+          <Route
+            path='login'
+            element={
+              <AuthLayout title='Log in to your account' description='Enter your email and password below to log in'>
+                <Login />
+              </AuthLayout>
+            }
+          />
+          <Route
+            path='register'
+            element={
+              <AuthLayout title='Create an account' description='Enter your details below to create your account'>
+                <Register />
+              </AuthLayout>
+            }
+          />
+        </Route>
+        <Route path='*' element={<DefaultLayout />}>
+          <Route path='*' element={<h1>404</h1>} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

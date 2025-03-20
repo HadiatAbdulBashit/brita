@@ -1,21 +1,41 @@
 import { useEffect, useId, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router";
 
-import { LoaderCircle, Moon, Search, Sun } from "lucide-react";
+import { LoaderCircle, LogOut, Moon, Search, Settings, Sun } from "lucide-react";
 
-import { Input } from "./ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { Input } from "./ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 import { useTheme } from "@/components/theme-provider";
 
+import { useInitials } from "@/hooks/use-initials";
+
 import logoWide from "@/assets/image/icon/logo-wide.png";
-import { Link } from "react-router";
+import { logout } from "@/redux/auth/authSlice";
+import { toast } from "sonner";
 
 const Header = () => {
   const id = useId();
+  const getInitials = useInitials();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { setTheme } = useTheme();
+
+  const { user, isAuthenticated } = useSelector((state: any) => state.auth);
+
   const [inputValue, setInputValue] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setTheme } = useTheme();
 
   useEffect(() => {
     if (inputValue) {
@@ -27,6 +47,12 @@ const Header = () => {
     }
     setIsLoading(false);
   }, [inputValue]);
+
+  const onClickLogout = () => {
+    dispatch(logout());
+    toast.info("Logout successful!");
+    navigate("/");
+  };
 
   return (
     <header className='sticky top-0 bg-background z-10'>
@@ -74,12 +100,62 @@ const Header = () => {
               )}
             </div>
           </div>
-          <Link to={"/login"}>
-            <Button variant={"outline"}>Login</Button>
-          </Link>
-          <Link to={"/register"}>
-            <Button>Register</Button>
-          </Link>
+
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant='ghost' className='size-10 p-1'>
+                  <Avatar className='size-8 overflow-hidden'>
+                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarFallback className='bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
+                      {getInitials(user.name)}
+                    </AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className='w-56' align='end'>
+                <DropdownMenuLabel className='p-0 font-normal'>
+                  <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
+                    <Avatar className='h-8 w-8 overflow-hidden'>
+                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarFallback className='bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
+                        {getInitials(user.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className='grid flex-1 text-left text-sm leading-tight'>
+                      <span className='truncate font-medium'>{user.name}</span>
+                      <span className='text-muted-foreground truncate text-xs'>{user.email}</span>
+                    </div>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuGroup>
+                  <DropdownMenuItem asChild>
+                    <Link className='block w-full' to={"/"}>
+                      <Settings className='mr-2' />
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <button className='block w-full' onClick={() => onClickLogout()}>
+                    <LogOut className='mr-2' />
+                    Log out
+                  </button>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link to={"/login"}>
+                <Button variant={"outline"}>Login</Button>
+              </Link>
+              <Link to={"/register"}>
+                <Button>Register</Button>
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

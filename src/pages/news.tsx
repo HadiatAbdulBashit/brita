@@ -1,12 +1,17 @@
+import { useSelector } from "react-redux";
+import { format } from "date-fns";
+
 import PageTitle from "@/components/page-title";
 import { Button } from "@/components/ui/button";
+
 import estimateReadTime from "@/lib/count-long-read";
+
 import { Article } from "@/types";
-import { format } from "date-fns";
-import { useSelector } from "react-redux";
 
 const News = () => {
   const news: Article = useSelector((state: any) => state.news.content);
+
+  if (!news.title) return null;
 
   return (
     <div className='container max-w-xl mx-auto'>

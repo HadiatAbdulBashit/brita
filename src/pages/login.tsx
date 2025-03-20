@@ -51,6 +51,8 @@ const Login = () => {
       toast.success("Login successful!");
       if (data.remember) {
         localStorage.setItem("loggedInUser", JSON.stringify(foundUser.id));
+      } else {
+        sessionStorage.setItem("loggedInUser", foundUser.id);
       }
       reset();
       setIsLoading(false);

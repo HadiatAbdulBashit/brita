@@ -14,9 +14,13 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
   return (
     <Card className={`grow overflow-hidden ${isSide && " flex-row gap-y-4"}`}>
       <Link to={"/news"} className={`${isSide ? "max-w-1/3 min-w-1/3" : "w-full"}`} onClick={onClickNews}>
-        <img src={article.urlToImage ?? ""} alt={article.title} className={`hover:brightness-75 object-cover aspect-video`} />
+        <img
+          src={article.urlToImage ?? "https://placehold.co/600x400"}
+          alt={article.title}
+          className={`hover:brightness-75 object-cover aspect-video`}
+        />
       </Link>
-      <div className={`flex flex-col ${isSide ? "gap-y-4 mt-2" : !isMain ? "gap-y-2" : "gap-y-6"}`}>
+      <div className={`flex grow flex-col ${isSide ? "gap-y-4 mt-2" : !isMain ? "gap-y-2" : "gap-y-6"}`}>
         <CardHeader className='px-0'>
           <CardDescription
             className={`flex ${(isMain ? "text-base" : "text-xs") + (isSide ? " flex-row-reverse justify-end gap-1" : " justify-between")}`}
