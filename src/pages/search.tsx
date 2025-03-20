@@ -20,8 +20,6 @@ const Search = () => {
     }&sortBy=${search.sortBy}&pageSize=10&page=${page}`
   );
 
-  console.log(search);
-
   return (
     <div className='container mx-auto'>
       <PageTitle title='Search' />

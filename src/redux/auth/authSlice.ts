@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const getInitialState = () => {
-  const loggedInUserId = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
+  let loggedInUserId = localStorage.getItem("loggedInUser") || sessionStorage.getItem("loggedInUser");
 
-  if (loggedInUserId) {
-    const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    const foundUser = existingUsers.find((user: { id: string }) => user.id === loggedInUserId);
+  if (!loggedInUserId) return { user: null, isAuthenticated: false };
 
-    if (foundUser) {
-      return { user: foundUser, isAuthenticated: true };
-    }
+  loggedInUserId = loggedInUserId.trim();
+
+  const existingUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+  const foundUser = existingUsers.find((user: { id: string }) => user.id.trim() === loggedInUserId);
+
+  if (foundUser) {
+    return { user: foundUser, isAuthenticated: true };
   }
 };
 
@@ -32,10 +35,13 @@ export const counterSlice = createSlice({
       localStorage.removeItem("loggedInUser");
       sessionStorage.removeItem("loggedInUser");
     },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { setAuthenticated, logout } = counterSlice.actions;
+export const { setAuthenticated, logout, setUser } = counterSlice.actions;
 
 const { reducer: authReducer } = counterSlice;
 

@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
-import { LoaderCircle, LogOut, Moon, Search, Settings, Sun, User } from "lucide-react";
+import { LoaderCircle, LogOut, Moon, Search, Sun, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -139,7 +139,7 @@ const Header = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant='ghost' className='size-10 rounded-full p-1'>
                   <Avatar className='size-8 overflow-hidden rounded-full'>
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage src={user.profileImage} alt={user.name} />
                     <AvatarFallback className='rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
                       {getInitials(user.name)}
                     </AvatarFallback>
@@ -150,7 +150,7 @@ const Header = () => {
                 <DropdownMenuLabel className='p-0 font-normal'>
                   <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                     <Avatar className='h-8 w-8 overflow-hidden rounded-full'>
-                      <AvatarImage src={user.avatar} alt={user.name} />
+                      <AvatarImage src={user.profileImage} alt={user.name} />
                       <AvatarFallback className='rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
                         {getInitials(user.name)}
                       </AvatarFallback>

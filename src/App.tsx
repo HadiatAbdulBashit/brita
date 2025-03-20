@@ -7,6 +7,7 @@ import ProtectedRoute from "@/components/protected-route";
 import DefaultLayout from "@/layouts/default";
 import AuthLayout from "@/layouts/auth";
 import Register from "@/pages/register";
+import Profile from "@/pages/profile";
 import Search from "@/pages/search";
 import Login from "@/pages/login";
 import Home from "@/pages/home";
@@ -58,6 +59,11 @@ function App() {
               </AuthLayout>
             }
           />
+        </Route>
+        <Route element={<ProtectedRoute condition={isAuthenticated} target='/' />}>
+          <Route element={<DefaultLayout />}>
+            <Route path='profile' element={<Profile />} />
+          </Route>
         </Route>
         <Route path='*' element={<DefaultLayout />}>
           <Route path='*' element={<h1>404</h1>} />

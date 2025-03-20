@@ -1,7 +1,6 @@
 import AdvanceSearch from "@/components/advance-search";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { FileSearch2 } from "lucide-react";
@@ -15,10 +14,8 @@ const DefaultLayout = () => {
         <Outlet />
       </main>
       <Sheet>
-        <SheetTrigger className='bottom-4 right-0 lg:hidden fixed'>
-          <Button className='pr-6'>
-            <FileSearch2 />
-          </Button>
+        <SheetTrigger className='bottom-4 right-0 lg:hidden fixed pr-6'>
+          <FileSearch2 />
         </SheetTrigger>
         <SheetContent>
           <ScrollArea className='h-full'>
