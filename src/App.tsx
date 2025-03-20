@@ -7,6 +7,7 @@ import ProtectedRoute from "@/components/protected-route";
 import DefaultLayout from "@/layouts/default";
 import AuthLayout from "@/layouts/auth";
 import Register from "@/pages/register";
+import Search from "@/pages/search";
 import Login from "@/pages/login";
 import Home from "@/pages/home";
 import News from "@/pages/news";
@@ -38,6 +39,7 @@ function App() {
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path='news' element={<News />} />
+          <Route path='search' element={<Search />} />
         </Route>
         <Route element={<ProtectedRoute condition={!isAuthenticated} target='/' />}>
           <Route

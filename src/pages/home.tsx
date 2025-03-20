@@ -10,6 +10,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 
 import { Article } from "@/types";
+import AdvanceSearch from "@/components/advance-search";
 
 const Home = () => {
   const [selectedCategory, setCategory] = useState<string>("general");
@@ -81,7 +82,7 @@ const Home = () => {
               ) : (
                 data.articles.slice(0, 1).map((article: Article, index: number) => <NewsCard key={index} article={article} isMain />)
               )}
-              <Separator orientation='vertical' />
+              {isLoading ? null : data.articles.length > 0 && <Separator orientation='vertical' />}
             </div>
             {isLoading ? (
               <>
@@ -92,13 +93,16 @@ const Home = () => {
               data.articles.slice(1, 3).map((article: Article, index: number) => <NewsCard key={index} article={article} />)
             )}
           </div>
-          <div className='grid grid-cols-3 mt-12'>
+          <div className='grid grid-cols-3 mt-12 gap-8'>
             <div className='col-span-2 flex flex-col gap-4'>
               {isLoading ? (
                 <Skeleton className='w-full aspect-video' />
               ) : (
                 data.articles.slice(3).map((article: Article, index: number) => <NewsCard key={index} article={article} isSide />)
               )}
+            </div>
+            <div>
+              <AdvanceSearch />
             </div>
           </div>
         </>

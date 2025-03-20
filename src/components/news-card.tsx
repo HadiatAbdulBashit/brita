@@ -34,7 +34,9 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
             <p className=''>By {(article.author ?? "Unknown") + (isSide ? " • " : "")}</p>
           </CardDescription>
           <Link to={"/news"} onClick={onClickNews}>
-            <CardTitle className={`hover:text-primary ${isMain && "text-3xl"}`}>{article.title}</CardTitle>
+            <CardTitle className={`hover:text-primary ${isMain && "text-3xl"}`}>
+              <h2>{article.title}</h2>
+            </CardTitle>
           </Link>
         </CardHeader>
         <CardContent className={`px-0 ${isMain ? "text-xl" : "text-sm"}`}>

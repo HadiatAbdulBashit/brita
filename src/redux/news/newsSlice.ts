@@ -12,16 +12,20 @@ export const counterSlice = createSlice({
   name: "news",
   initialState: {
     content: initialState,
+    search: {},
   },
   reducers: {
     setNews: (state, action) => {
       state.content = action.payload;
       localStorage.setItem("latestNews", JSON.stringify(action.payload));
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
-export const { setNews } = counterSlice.actions;
+export const { setNews, setSearch } = counterSlice.actions;
 
 const { reducer: newsReducer } = counterSlice;
 
