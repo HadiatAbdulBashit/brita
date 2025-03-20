@@ -3,6 +3,7 @@ import { companyLink } from "@/constants/company.constant";
 import { companySocial } from "@/constants/social.constant";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
+import { Heart, HeartIcon, HeartPulseIcon, LucideHeart } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -45,7 +46,9 @@ const Footer = () => {
         <Separator />
         <div className='flex justify-between mt-4'>
           <p>Copyright © {new Date().getFullYear()} - All right reserved</p>
-          <p>Powered by Brita</p>
+          <p className='flex gap-2'>
+            With <LucideHeart className='text-primary' /> by HAB
+          </p>
         </div>
       </div>
     </footer>

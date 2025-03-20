@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
 
-import { LoaderCircle, LogOut, Moon, Search, Settings, Sun } from "lucide-react";
+import { LoaderCircle, LogOut, Moon, Search, Settings, Sun, User } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -164,9 +164,9 @@ const Header = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                   <DropdownMenuItem asChild>
-                    <Link className='block w-full' to={"/"}>
-                      <Settings className='mr-2' />
-                      Settings
+                    <Link className='block w-full' to={"/profile"}>
+                      <User className='mr-2' />
+                      Profile
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>

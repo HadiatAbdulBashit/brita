@@ -17,8 +17,8 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
   };
 
   return (
-    <Card className={`grow overflow-hidden ${isSide && " flex-row gap-y-4"}`}>
-      <Link to={"/news"} className={`${isSide ? "max-w-1/3 min-w-1/3" : "w-full"}`} onClick={onClickNews}>
+    <Card className={`grow overflow-hidden ${isSide && " sm:flex-row gap-y-4"}`}>
+      <Link to={"/news"} className={`${isSide ? "sm:max-w-1/3 sm:min-w-1/3 w-full" : "w-full"}`} onClick={onClickNews}>
         <img
           src={article.urlToImage ?? "https://placehold.co/600x400"}
           alt={article.title}

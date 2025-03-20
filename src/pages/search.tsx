@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import useSWR from "swr";
 
-const SearchPage = () => {
+const Search = () => {
   const search = useSelector((state: any) => state.news.search);
   const [page, setPage] = useState<number>(1);
 
@@ -33,7 +33,7 @@ const SearchPage = () => {
           <h1 className='text-3xl font-bold text-primary text-center'>Something went wrong</h1>
         </div>
       ) : (
-        <div className='grid grid-cols-3 mt-12 gap-8'>
+        <div className='grid lg:grid-cols-3 grid-cols-2 mt-12 gap-8'>
           <div className='col-span-2 flex flex-col gap-4'>
             {isLoading ? (
               <Skeleton className='w-full aspect-video' />
@@ -56,7 +56,7 @@ const SearchPage = () => {
               </div>
             )}
           </div>
-          <div>
+          <div className='hidden lg:block'>
             <AdvanceSearch />
           </div>
         </div>
@@ -65,4 +65,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default Search;

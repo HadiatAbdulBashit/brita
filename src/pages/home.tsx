@@ -75,14 +75,14 @@ const Home = () => {
         </div>
       ) : (
         <>
-          <div className='grid grid-cols-4 grid-rows-2 gap-8'>
-            <div className='col-span-3 row-span-2 flex justify-between gap-8'>
+          <div className='grid xl:grid-cols-4 md:grid-cols-2 grid-cols-1 grid-rows-2 gap-8'>
+            <div className='xl:col-span-3 md:col-span-2 row-span-2 flex justify-between gap-8'>
               {isLoading ? (
                 <Skeleton className='w-full aspect-video' />
               ) : (
                 data.articles.slice(0, 1).map((article: Article, index: number) => <NewsCard key={index} article={article} isMain />)
               )}
-              {isLoading ? null : data.articles.length > 0 && <Separator orientation='vertical' />}
+              {isLoading ? null : data.articles.length > 0 && <Separator orientation='vertical' className='xl:block hidden' />}
             </div>
             {isLoading ? (
               <>
@@ -93,7 +93,7 @@ const Home = () => {
               data.articles.slice(1, 3).map((article: Article, index: number) => <NewsCard key={index} article={article} />)
             )}
           </div>
-          <div className='grid grid-cols-3 mt-12 gap-8'>
+          <div className='grid grid-cols-2 lg:grid-cols-3 mt-12 gap-8'>
             <div className='col-span-2 flex flex-col gap-4'>
               {isLoading ? (
                 <Skeleton className='w-full aspect-video' />
@@ -101,7 +101,7 @@ const Home = () => {
                 data.articles.slice(3).map((article: Article, index: number) => <NewsCard key={index} article={article} isSide />)
               )}
             </div>
-            <div>
+            <div className='hidden lg:block'>
               <AdvanceSearch />
             </div>
           </div>
