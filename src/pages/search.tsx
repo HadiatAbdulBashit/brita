@@ -13,14 +13,14 @@ const SearchPage = () => {
   const [page, setPage] = useState<number>(1);
 
   const { data, error, isLoading } = useSWR(
-    `/everything?q="${search.keyword}"&searchIn=${search.searchIn.map((item: string) => item).join(",")}&domains=${
-      search.domains
-    }&excludeDomains=${search.excludeDomains}&from=${search.from}&to=${search.to}&language=${search.language}&sortBy=${
-      search.sortBy
-    }&pageSize=10&page=${page}`
+    `/everything?q="${search.keyword ? search.keyword : "Indonesia"}"&searchIn=${search.searchIn
+      .map((item: string) => item)
+      .join(",")}&domains=${search.domains}&excludeDomains=${search.excludeDomains}&from=${search.from}&to=${search.to}&language=${
+      search.language
+    }&sortBy=${search.sortBy}&pageSize=10&page=${page}`
   );
 
-  console.log(data);
+  console.log(search);
 
   return (
     <div className='container mx-auto'>
@@ -47,7 +47,9 @@ const SearchPage = () => {
                 <Button onClick={() => setPage(page - 1)} disabled={page <= 1}>
                   Previous
                 </Button>
-                <p>Page: {page}</p>
+                <p>
+                  Page: {page} of {(data.totalResults / 10).toFixed()}
+                </p>
                 <Button onClick={() => setPage(page + 1)} disabled={data.totalResults / 10 < page}>
                   Next
                 </Button>

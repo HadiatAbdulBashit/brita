@@ -12,7 +12,16 @@ export const counterSlice = createSlice({
   name: "news",
   initialState: {
     content: initialState,
-    search: {},
+    search: {
+      keyword: "",
+      searchIn: ["title", "description", "content"],
+      domains: "",
+      excludeDomains: "",
+      from: "",
+      to: "",
+      language: "",
+      sortBy: "",
+    },
   },
   reducers: {
     setNews: (state, action) => {

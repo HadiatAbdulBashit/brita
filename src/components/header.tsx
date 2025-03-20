@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useId, useState } from "react";
 import { toast } from "sonner";
 import useSWR from "swr";
@@ -65,9 +65,23 @@ const Header = () => {
             <img src={logoWide} alt='logo' className='max-w-32 h-auto' />
           </Link>
           <nav>
-            <ul className='flex gap-4'>
-              <li>News</li>
-              <li>Bookmark</li>
+            <ul className='flex gap-2'>
+              <li>
+                <NavLink
+                  to={"/"}
+                  className={({ isActive }) => (isActive ? "border-b border-primary bg-primary/10 hover:grayscale-100" : "none") + " py-1"}
+                >
+                  <Button variant='ghost'>Home</Button>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to={"/search"}
+                  className={({ isActive }) => (isActive ? "border-b border-primary bg-primary/10 hover:grayscale-100" : "none") + " py-1"}
+                >
+                  <Button variant='ghost'>Search</Button>
+                </NavLink>
+              </li>
             </ul>
           </nav>
         </div>

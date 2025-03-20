@@ -39,8 +39,8 @@ const AdvanceSearch = () => {
   };
 
   return (
-    <div className='grow sticky top-6'>
-      <h3 className='text-center font-semibold'>Advance Search</h3>
+    <div className='grow sticky top-16'>
+      <h3 className='text-center font-semibold text-2xl'>Advance Search</h3>
 
       <form className='grid gap-4 mt-6' onSubmit={handleSubmit(onSubmit)}>
         <div className='grid gap-2'>
@@ -127,8 +127,8 @@ const AdvanceSearch = () => {
         <div className='grid grid-cols-2 gap-2'>
           <div className='grid gap-2'>
             <Label htmlFor='language'>Language</Label>
-            <select {...register("language")} className='px-2 py-2 border border-input bg-background capitalize text-sm'>
-              <option value={""} hidden selected>
+            <select {...register("language")} defaultValue={""} className='px-2 py-2 border border-input bg-background capitalize text-sm'>
+              <option value={""} hidden>
                 - Lang -
               </option>
               {metaLoading
@@ -143,8 +143,8 @@ const AdvanceSearch = () => {
           </div>
           <div className='grid gap-2'>
             <Label htmlFor='sortBy'>Sort By</Label>
-            <select {...register("sortBy")} className='px-2 py-2 border border-input bg-background capitalize text-sm'>
-              <option value={""} hidden selected>
+            <select {...register("sortBy")} defaultValue={""} className='px-2 py-2 border border-input bg-background capitalize text-sm'>
+              <option value={""} hidden>
                 - Sort By -
               </option>
               {["relevancy", "popularity", "publishedAt"].map((item, index) => (
