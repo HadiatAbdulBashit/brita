@@ -1,12 +1,16 @@
-import { useEffect, useId, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
+import { useId, useState } from "react";
+import { toast } from "sonner";
+import useSWR from "swr";
 
 import { LoaderCircle, LogOut, Moon, Search, Settings, Sun } from "lucide-react";
 
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,15 +19,19 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 import { useTheme } from "@/components/theme-provider";
 
 import { useInitials } from "@/hooks/use-initials";
 
 import logoWide from "@/assets/image/icon/logo-wide.png";
+
+import { setNews } from "@/redux/news/newsSlice";
 import { logout } from "@/redux/auth/authSlice";
-import { toast } from "sonner";
+import store from "@/redux/store";
+
+import { Article } from "@/types";
 
 const Header = () => {
   const id = useId();
@@ -34,24 +42,19 @@ const Header = () => {
 
   const { user, isAuthenticated } = useSelector((state: any) => state.auth);
 
-  const [inputValue, setInputValue] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
 
-  useEffect(() => {
-    if (inputValue) {
-      setIsLoading(true);
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-    setIsLoading(false);
-  }, [inputValue]);
+  const { data, error, isLoading } = useSWR(searchKeyword ? `/everything?q=${searchKeyword}&pageSize=10&searchIn=title` : null);
 
   const onClickLogout = () => {
     dispatch(logout());
     toast.info("Logout successful!");
     navigate("/");
+  };
+
+  const onClickNews = (article: Article) => {
+    setSearchKeyword("");
+    store.dispatch(setNews(article));
   };
 
   return (
@@ -68,7 +71,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-        <div className='justify-self-end flex gap-2 items-center'>
+        <div className='justify-self-end flex gap-2 items-center relative'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='icon'>
@@ -89,8 +92,8 @@ const Header = () => {
               className='peer ps-9'
               placeholder='Search News...'
               type='search'
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
+              value={searchKeyword}
+              onChange={(e) => setSearchKeyword(e.target.value)}
             />
             <div className='pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-muted-foreground/80 peer-disabled:opacity-50'>
               {isLoading ? (
@@ -99,15 +102,31 @@ const Header = () => {
                 <Search size={16} strokeWidth={2} aria-hidden='true' />
               )}
             </div>
+            <div className={`h-72 w-full top-full left-0 z-20 bg-primary-foreground border ${searchKeyword ? "absolute" : "hidden"}`}>
+              {searchKeyword && data && !error && (
+                <ScrollArea className='h-72'>
+                  <div className='p-4'>
+                    {data.articles.map((article: Article, index: number) => (
+                      <div key={index}>
+                        <Link to={`/news`} className='text-sm hover:text-primary' onClick={() => onClickNews(article)}>
+                          {article.title}
+                        </Link>
+                        <Separator className='my-2' />
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+              )}
+            </div>
           </div>
 
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant='ghost' className='size-10 p-1'>
-                  <Avatar className='size-8 overflow-hidden'>
+                <Button variant='ghost' className='size-10 rounded-full p-1'>
+                  <Avatar className='size-8 overflow-hidden rounded-full'>
                     <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className='bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
+                    <AvatarFallback className='rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
                       {getInitials(user.name)}
                     </AvatarFallback>
                   </Avatar>
@@ -116,9 +135,9 @@ const Header = () => {
               <DropdownMenuContent className='w-56' align='end'>
                 <DropdownMenuLabel className='p-0 font-normal'>
                   <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
-                    <Avatar className='h-8 w-8 overflow-hidden'>
+                    <Avatar className='h-8 w-8 overflow-hidden rounded-full'>
                       <AvatarImage src={user.avatar} alt={user.name} />
-                      <AvatarFallback className='bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
+                      <AvatarFallback className='rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white'>
                         {getInitials(user.name)}
                       </AvatarFallback>
                     </Avatar>

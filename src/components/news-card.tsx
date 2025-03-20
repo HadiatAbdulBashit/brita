@@ -1,10 +1,15 @@
-import { Article } from "@/types";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-import estimateReadTime from "@/lib/count-long-read";
-import { format } from "date-fns";
-import store from "@/redux/store";
-import { setNews } from "@/redux/news/newsSlice";
 import { Link } from "react-router";
+import { format } from "date-fns";
+
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+import estimateReadTime from "@/lib/count-long-read";
+
+import { setNews } from "@/redux/news/newsSlice";
+
+import store from "@/redux/store";
+
+import { Article } from "@/types";
 
 const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMain?: boolean; isSide?: boolean }) => {
   const onClickNews = () => {
@@ -33,7 +38,7 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
           </Link>
         </CardHeader>
         <CardContent className={`px-0 ${isMain ? "text-xl" : "text-sm"}`}>
-          <p>{article.description}</p>
+          <p className='text-justify'>{article.description}</p>
         </CardContent>
       </div>
     </Card>
