@@ -15,7 +15,7 @@ createRoot(document.getElementById("root")!).render(
       <SWRConfig
         value={{
           fetcher: (url, init) =>
-            fetch("/api" + url, {
+            fetch(import.meta.env.VITE_API_BASE_URL + url, {
               headers: {
                 Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
               },
