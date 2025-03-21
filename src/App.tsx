@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import useSWR from "swr";
@@ -35,7 +35,7 @@ function App() {
   }, [data, error, isLoading]);
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <Routes>
         <Route path='/' element={<DefaultLayout />}>
           <Route index element={<Home />} />
@@ -69,7 +69,7 @@ function App() {
           <Route path='*' element={<h1>404</h1>} />
         </Route>
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

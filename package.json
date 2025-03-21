@@ -1,7 +1,7 @@
 {
   "name": "test-purple-box-react-ts",
   "private": true,
-  "homepage": "https://hadiatabdulbashit.github.io/brita",
+  "homepage": "https://brita-react.netlify.app",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
