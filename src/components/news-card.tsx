@@ -22,7 +22,7 @@ const NewsCard = ({ article, isMain, isSide = false }: { article: Article; isMai
         <img
           src={article.urlToImage ?? "https://placehold.co/600x400"}
           alt={article.title}
-          className={`hover:brightness-75 object-cover aspect-video`}
+          className={`hover:brightness-75 object-cover aspect-video w-full`}
         />
       </Link>
       <div className={`flex grow flex-col ${isSide ? "gap-y-4 mt-2" : !isMain ? "gap-y-2" : "gap-y-6"}`}>

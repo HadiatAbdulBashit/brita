@@ -14,8 +14,8 @@ const DefaultLayout = () => {
         <Outlet />
       </main>
       <Sheet>
-        <SheetTrigger className='bottom-4 right-0 lg:hidden fixed pr-6'>
-          <FileSearch2 />
+        <SheetTrigger className='bottom-4 right-0 lg:hidden fixed pr-6 bg-primary pl-2 py-2 hover:bg-primary/70 border border-muted border-r-0'>
+          <FileSearch2 className='text-background' />
         </SheetTrigger>
         <SheetContent>
           <ScrollArea className='h-full'>

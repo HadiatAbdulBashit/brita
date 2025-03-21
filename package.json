@@ -1,13 +1,16 @@
 {
   "name": "test-purple-box-react-ts",
   "private": true,
+  "homepage": "https://hadiatabdulbashit.github.io/brita",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "bun run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@radix-ui/react-aspect-ratio": "^1.1.2",
@@ -27,6 +30,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "gh-pages": "^6.3.0",
     "lucide-react": "^0.483.0",
     "next-themes": "^0.4.6",
     "react": "^19.0.0",

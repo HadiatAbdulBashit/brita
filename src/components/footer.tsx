@@ -3,7 +3,7 @@ import { companyLink } from "@/constants/company.constant";
 import { companySocial } from "@/constants/social.constant";
 import { Button } from "./ui/button";
 import { Separator } from "./ui/separator";
-import { Heart, HeartIcon, HeartPulseIcon, LucideHeart } from "lucide-react";
+import { LucideHeart } from "lucide-react";
 
 const Footer = () => {
   return (
